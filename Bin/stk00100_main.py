@@ -6,7 +6,7 @@ import os.path
 import copy
 import glob
 
-# main?
+# OKOK?
 
 import stk00100_iniget as Ini
 from stk00100_iniget import vgfGetIni
