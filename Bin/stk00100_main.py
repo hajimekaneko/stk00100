@@ -6,14 +6,11 @@ import os.path
 import copy
 import glob
 
-# OKOK?
-
 import stk00100_iniget as Ini
 from stk00100_iniget import vgfGetIni
 from common.make_log import setup_logger
 vgfGetIni()
 logger = setup_logger(__name__)
-
 
 from stk00100_filedelete import remove_allfiles_before_exe
 
