@@ -1,0 +1,81 @@
+# 参照記事：https://qiita.com/connvoi_tyou/items/7cd7ffd5a98f61855f5c
+
+from __future__ import print_function
+import os.path
+
+import stk00100_iniget as Ini
+from stk00100_iniget import vgfGetIni
+
+from common.operate_googleapi import SpreadSheet
+
+# iniから値を取得
+vgfGetIni()
+
+# GoogleSpreadSheet認証
+SS = SpreadSheet()
+SS.Authentication()
+vgsSheetId = SS.AddSheets()
+
+#セルに文字列を入れる
+body={}
+body['range']=range_ = Ini.vgsSS_SheetName + "!A1:B10"
+body['majorDimension']="ROWS"
+body['values']=[
+        [1,  2],
+        [3,  4],
+        [4,  5],
+        [5,  6],
+        [6,  7],
+        [7,  8],
+        [8,  9],
+        [10, 11],
+        [12, 13],
+        ['test', 'スプレッドシートのテストですよ'],
+        ]
+SS.Write(body)
+
+requests = []#セルのフォーマットを変更する
+requests.append({
+    "updateBorders":{
+        "range": {
+            "sheetId": vgsSheetId,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 0,
+            "endColumnIndex": 2,
+            },
+        "bottom": {
+            "style": "SOLID",
+            "width": "1",
+            "color": { "red": 0, "green":0, "blue":0 },
+            },
+        },
+    })
+requests.append({
+    "repeatCell": {
+        "range": {
+            "sheetId": vgsSheetId,
+            "startRowIndex": 0,
+            "endRowIndex": 1,
+            "startColumnIndex": 0,
+            "endColumnIndex": 2,
+            },
+        "cell": {
+            "userEnteredFormat": {
+                "horizontalAlignment" : "LEFT",
+                "textFormat": {
+                    "fontSize": 11,
+                    "bold": True,
+                    "foregroundColor": {
+                        "red": 1.0,
+                        },
+                    }
+                }
+            },
+        "fields": "userEnteredFormat(textFormat,horizontalAlignment)"
+        },
+    })
+body = { 'requests': requests }
+SS.ChangeFormat(body)
+
+
