@@ -1,5 +1,6 @@
 # 参照記事：https://qiita.com/connvoi_tyou/items/7cd7ffd5a98f61855f5c
 # GoogleDOcsAPI: https://rimever.hatenablog.com/entry/2019/10/16/060000
+# リネーム
 
 from __future__ import print_function
 import os.path
